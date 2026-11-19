@@ -1,0 +1,6 @@
+*{box-sizing:border-box}
+body{margin:0;font-family:'Inter',system-ui,sans-serif;color:#2A1440;background:#FFFFFF}
+a{color:inherit}
+button{font-family:inherit}
+.chip{border:0;cursor:pointer;font:600 15px 'Inter',sans-serif;padding:10px 20px;border-radius:999px;min-height:44px;background:#FFFFFF;color:#2A1440}
+.chip.on{background:#6B2D8F;color:#FFFFFF}

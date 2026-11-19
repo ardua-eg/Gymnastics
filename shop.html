@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop – Gymnastics wear in Egy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div style="max-width:1200px;margin:0 auto;padding:20px 32px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+<a href="index.html" style="text-decoration:none;font-family:'Fredoka',sans-serif;font-weight:700;font-size:24px">Gymnastics wear in Egy</a>
+<div style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;font-size:15px;font-weight:500">
+<a href="index.html" style="text-decoration:none">Home</a>
+<a href="index.html#contact" style="text-decoration:none;background:#C71F66;color:#FFFFFF;padding:12px 22px;border-radius:999px">Contact us</a>
+</div>
+</div>
+<div style="display:flex;height:12px"><div style="flex:1;background:#6DBE45"></div><div style="flex:1;background:#FFC20E"></div><div style="flex:1;background:#F7941D"></div><div style="flex:1;background:#E5322D"></div><div style="flex:1;background:#D6246E"></div><div style="flex:1;background:#6B2D8F"></div></div>
+
+<main style="max-width:1200px;margin:0 auto;padding:40px 32px 80px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+<h1 style="margin:0;font-family:'Fredoka',sans-serif;font-weight:700;font-size:44px;letter-spacing:-0.01em">Shop</h1>
+<div style="font-size:13px;font-weight:600;background:#FFC20E;padding:8px 14px;border-radius:999px">Sample products, replace with real ones</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px;background:#F7F2FB;border-radius:20px;padding:20px">
+<div><div class="lbl">Category</div><div id="cats" class="row"></div></div>
+<div id="typesWrap" hidden><div class="lbl">Type</div><div id="types" class="row"></div></div>
+<div><div class="lbl">Brand</div><div id="brands" class="row"></div></div>
+</div>
+<div id="count" style="font-size:15px;color:#4A3860"></div>
+<div id="grid" style="display:flex;flex-wrap:wrap;gap:20px"></div>
+<div id="empty" hidden style="font-size:16px;color:#4A3860">No products match these filters.</div>
+</main>
+<style>
+.lbl{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4A3860;margin-bottom:8px}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+</style>
+<script>
+var TREE={Men:['Leotard','Shorts','Pants'],Women:['Long sleeve','Short sleeve','Shorts'],Accessories:['Shoes','Grips','Bags']};
+var TINT={Men:'#E6DAF1',Women:'#F9D0E1',Accessories:'#FFE3BF'};
+var BRANDS=['Snow flakes','Destira','Alpha Factor','Agiva'];
+var all=[],n=0;
+Object.keys(TREE).forEach(function(cat){TREE[cat].forEach(function(type){for(var k=1;k<=2;k++){all.push({cat:cat,type:type,brand:BRANDS[n%4],name:type+' '+k});n++;}});});
+var s={cat:'All',type:'All',brand:'All'};
+function chips(el,list,key){
+  el.innerHTML='';
+  list.forEach(function(v){
+    var b=document.createElement('button');
+    b.className='chip'+(s[key]===v?' on':'');
+    b.textContent=v;
+    b.onclick=function(){s[key]=v;if(key==='cat')s.type='All';render();};
+    el.appendChild(b);
+  });
+}
+function render(){
+  chips(document.getElementById('cats'),['All','Men','Women','Accessories'],'cat');
+  var hasT=s.cat!=='All';
+  document.getElementById('typesWrap').hidden=!hasT;
+  if(hasT)chips(document.getElementById('types'),['All'].concat(TREE[s.cat]),'type');
+  chips(document.getElementById('brands'),['All'].concat(BRANDS),'brand');
+  var items=all.filter(function(p){return(s.cat==='All'||p.cat===s.cat)&&(s.type==='All'||p.type===s.type)&&(s.brand==='All'||p.brand===s.brand);});
+  document.getElementById('count').textContent='Showing '+items.length+(items.length===1?' product':' products');
+  document.getElementById('empty').hidden=items.length>0;
+  document.getElementById('grid').innerHTML=items.map(function(p){
+    return '<div style="flex:1 1 240px;max-width:380px;background:#fff;border:1px solid #E6DAF1;border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:10px">'+
+    '<div style="height:200px;border-radius:12px;background:'+TINT[p.cat]+';display:flex;align-items:center;justify-content:center;font-size:13px;color:#4A3860">[PRODUCT PHOTO]</div>'+
+    '<div style="font-size:13px;color:#4A3860">'+p.brand+' · '+p.cat+'</div>'+
+    '<div style="font-family:Fredoka,sans-serif;font-weight:600;font-size:20px">'+p.name+'</div>'+
+    '<div style="display:flex;gap:12px;align-items:center;justify-content:space-between"><div style="font-weight:600;font-size:16px">[PRICE] EGP</div>'+
+    '<a href="index.html#contact" style="text-decoration:none;background:#C71F66;color:#fff;font-weight:600;font-size:14px;padding:12px 18px;border-radius:999px">Enquire</a></div></div>';
+  }).join('');
+}
+render();
+</script>
+</body>
+</html>
