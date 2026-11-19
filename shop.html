@@ -68,10 +68,53 @@ function render(){
     '<div style="font-size:13px;color:#4A3860">'+p.brand+' · '+p.cat+'</div>'+
     '<div style="font-family:Fredoka,sans-serif;font-weight:600;font-size:20px">'+p.name+'</div>'+
     '<div style="display:flex;gap:12px;align-items:center;justify-content:space-between"><div style="font-weight:600;font-size:16px">[PRICE] EGP</div>'+
-    '<a href="index.html#contact" style="text-decoration:none;background:#C71F66;color:#fff;font-weight:600;font-size:14px;padding:12px 18px;border-radius:999px">Enquire</a></div></div>';
+    '<button data-enq="'+p.name+' ('+p.brand+')" style="border:0;cursor:pointer;background:#C71F66;color:#fff;font:600 14px Inter,sans-serif;padding:12px 18px;border-radius:999px;min-height:44px">Request order</button></div></div>';
   }).join('');
 }
 render();
+</script>
+
+<dialog id="dlg" style="border:0;border-radius:20px;padding:28px;max-width:440px;width:calc(100% - 32px)">
+<form id="frm" style="display:flex;flex-direction:column;gap:12px">
+<h2 style="margin:0;font-family:Fredoka,sans-serif;font-size:24px">Request an order</h2>
+<div id="prod" style="font-size:14px;color:#4A3860"></div>
+<label class="f">Your name<input name="name" required maxlength="80" autocomplete="name"></label>
+<label class="f">WhatsApp / phone<input name="phone" required maxlength="30" inputmode="tel" autocomplete="tel"></label>
+<label class="f">City<input name="city" maxlength="60" autocomplete="address-level2"></label>
+<label class="f">I am a<select name="type"><option>Athlete</option><option>Parent</option><option>Coach</option><option>Club</option><option>Retailer</option></select></label>
+<label class="f">Sizes, quantities, notes<textarea name="note" rows="3" maxlength="600"></textarea></label>
+<input name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+<div id="msg" role="status" style="font-size:14px;min-height:20px"></div>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<button type="submit" id="send" style="border:0;cursor:pointer;background:#C71F66;color:#fff;font:600 16px Inter,sans-serif;padding:14px 24px;border-radius:999px;min-height:44px">Send request</button>
+<button type="button" id="close" style="border:2px solid #2A1440;cursor:pointer;background:#fff;color:#2A1440;font:600 16px Inter,sans-serif;padding:12px 22px;border-radius:999px;min-height:44px">Close</button>
+</div>
+</form>
+</dialog>
+<style>
+.f{display:flex;flex-direction:column;gap:4px;font-size:14px;font-weight:600}
+.f input,.f select,.f textarea{font:400 16px Inter,sans-serif;padding:10px 12px;border:2px solid #CDB8E3;border-radius:12px;color:#2A1440;background:#fff}
+dialog::backdrop{background:rgba(42,20,64,.55)}
+</style>
+<script>
+var dlg=document.getElementById('dlg'),frm=document.getElementById('frm'),msg=document.getElementById('msg'),product='';
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-enq]');
+  if(b){product=b.getAttribute('data-enq');document.getElementById('prod').textContent='Product: '+product;msg.textContent='';frm.reset();dlg.showModal();}
+});
+document.getElementById('close').onclick=function(){dlg.close()};
+frm.onsubmit=function(e){
+  e.preventDefault();
+  var send=document.getElementById('send');send.disabled=true;msg.style.color='#4A3860';msg.textContent='Sending...';
+  var data=Object.fromEntries(new FormData(frm).entries());data.product=product;
+  fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+  .then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j}})})
+  .then(function(x){
+    if(x.ok){msg.style.color='#2A7A1E';msg.textContent='Thank you! We will contact you on WhatsApp soon.';frm.reset();setTimeout(function(){dlg.close()},2500);}
+    else{msg.style.color='#B00020';msg.textContent=x.j.error||'Something went wrong. Please try again.';}
+    send.disabled=false;
+  }).catch(function(){msg.style.color='#B00020';msg.textContent='Could not send. Check your connection and try again.';send.disabled=false;});
+};
 </script>
 </body>
 </html>

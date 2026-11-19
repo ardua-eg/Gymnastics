@@ -1,0 +1,8 @@
+{
+  "name": "gymnastics-wear-in-egy",
+  "private": true,
+  "dependencies": {
+    "@vercel/functions": "latest"
+  },
+  "type": "module"
+}
