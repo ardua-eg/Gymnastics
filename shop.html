@@ -7,23 +7,29 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+.lbl{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4A3860;margin-bottom:8px}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.tab{border:0;cursor:pointer;font:600 16px 'Inter',sans-serif;padding:12px 22px;border-radius:999px;min-height:48px;background:#EFE6F7;color:#2A1440}
+.tab.on{background:#2A1440;color:#fff}
+</style>
 </head>
-<body>
-<div style="max-width:1200px;margin:0 auto;padding:20px 32px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
-<a href="index.html" style="text-decoration:none;font-family:'Fredoka',sans-serif;font-weight:700;font-size:24px">Gymnastics wear in Egy</a>
-<div style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;font-size:15px;font-weight:500">
+<body style="background:#F7F2FB">
+<div style="max-width:1200px;margin:0 auto;padding:20px 32px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:flex-end">
+<div style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;font-size:16px;font-weight:600">
 <a href="index.html" style="text-decoration:none">Home</a>
-<a href="index.html#contact" style="text-decoration:none;background:#C71F66;color:#FFFFFF;padding:12px 22px;border-radius:999px">Contact us</a>
+<a href="clearance.html" style="text-decoration:none">Clearance</a>
+<a href="index.html#contact" style="text-decoration:none;background:#C71F66;color:#fff;padding:12px 22px;border-radius:999px">Contact</a>
 </div>
 </div>
 <div style="display:flex;height:12px"><div style="flex:1;background:#6DBE45"></div><div style="flex:1;background:#FFC20E"></div><div style="flex:1;background:#F7941D"></div><div style="flex:1;background:#E5322D"></div><div style="flex:1;background:#D6246E"></div><div style="flex:1;background:#6B2D8F"></div></div>
 
-<main style="max-width:1200px;margin:0 auto;padding:40px 32px 80px;display:flex;flex-direction:column;gap:28px">
+<main id="catalog" data-modes="stock,order" style="max-width:1200px;margin:0 auto;padding:40px 32px 100px;display:flex;flex-direction:column;gap:24px">
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
 <h1 style="margin:0;font-family:'Fredoka',sans-serif;font-weight:700;font-size:44px;letter-spacing:-0.01em">Shop</h1>
-<div style="font-size:13px;font-weight:600;background:#FFC20E;padding:8px 14px;border-radius:999px">Sample products, replace with real ones</div>
 </div>
-<div style="display:flex;flex-direction:column;gap:16px;background:#F7F2FB;border-radius:20px;padding:20px">
+<div style="display:flex;flex-direction:column;gap:10px"><div id="tabs" role="group" aria-label="Product type" style="display:flex;flex-wrap:wrap;gap:8px"></div><div id="tabnote" role="status" style="font-size:15px;color:#4A3860"></div></div>
+<div style="display:flex;flex-direction:column;gap:16px;background:#EFE6F7;border-radius:20px;padding:20px">
 <div><div class="lbl">Category</div><div id="cats" class="row"></div></div>
 <div id="typesWrap" hidden><div class="lbl">Type</div><div id="types" class="row"></div></div>
 <div><div class="lbl">Brand</div><div id="brands" class="row"></div></div>
@@ -32,89 +38,9 @@
 <div id="grid" style="display:flex;flex-wrap:wrap;gap:20px"></div>
 <div id="empty" hidden style="font-size:16px;color:#4A3860">No products match these filters.</div>
 </main>
-<style>
-.lbl{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4A3860;margin-bottom:8px}
-.row{display:flex;flex-wrap:wrap;gap:8px}
-</style>
-<script>
-var TREE={Men:['Leotard','Shorts','Pants'],Women:['Long sleeve','Short sleeve','Shorts'],Accessories:['Shoes','Grips','Bags']};
-var TINT={Men:'#E6DAF1',Women:'#F9D0E1',Accessories:'#FFE3BF'};
-var BRANDS=['Snow flakes','Destira','Alpha Factor','Agiva'];
-var all=[],n=0;
-Object.keys(TREE).forEach(function(cat){TREE[cat].forEach(function(type){for(var k=1;k<=2;k++){all.push({cat:cat,type:type,brand:BRANDS[n%4],name:type+' '+k});n++;}});});
-var s={cat:'All',type:'All',brand:'All'};
-function chips(el,list,key){
-  el.innerHTML='';
-  list.forEach(function(v){
-    var b=document.createElement('button');
-    b.className='chip'+(s[key]===v?' on':'');
-    b.textContent=v;
-    b.onclick=function(){s[key]=v;if(key==='cat')s.type='All';render();};
-    el.appendChild(b);
-  });
-}
-function render(){
-  chips(document.getElementById('cats'),['All','Men','Women','Accessories'],'cat');
-  var hasT=s.cat!=='All';
-  document.getElementById('typesWrap').hidden=!hasT;
-  if(hasT)chips(document.getElementById('types'),['All'].concat(TREE[s.cat]),'type');
-  chips(document.getElementById('brands'),['All'].concat(BRANDS),'brand');
-  var items=all.filter(function(p){return(s.cat==='All'||p.cat===s.cat)&&(s.type==='All'||p.type===s.type)&&(s.brand==='All'||p.brand===s.brand);});
-  document.getElementById('count').textContent='Showing '+items.length+(items.length===1?' product':' products');
-  document.getElementById('empty').hidden=items.length>0;
-  document.getElementById('grid').innerHTML=items.map(function(p){
-    return '<div style="flex:1 1 240px;max-width:380px;background:#fff;border:1px solid #E6DAF1;border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:10px">'+
-    '<div style="height:200px;border-radius:12px;background:'+TINT[p.cat]+';display:flex;align-items:center;justify-content:center;font-size:13px;color:#4A3860">[PRODUCT PHOTO]</div>'+
-    '<div style="font-size:13px;color:#4A3860">'+p.brand+' · '+p.cat+'</div>'+
-    '<div style="font-family:Fredoka,sans-serif;font-weight:600;font-size:20px">'+p.name+'</div>'+
-    '<div style="display:flex;gap:12px;align-items:center;justify-content:space-between"><div style="font-weight:600;font-size:16px">[PRICE] EGP</div>'+
-    '<button data-enq="'+p.name+' ('+p.brand+')" style="border:0;cursor:pointer;background:#C71F66;color:#fff;font:600 14px Inter,sans-serif;padding:12px 18px;border-radius:999px;min-height:44px">Request order</button></div></div>';
-  }).join('');
-}
-render();
-</script>
 
-<dialog id="dlg" style="border:0;border-radius:20px;padding:28px;max-width:440px;width:calc(100% - 32px)">
-<form id="frm" style="display:flex;flex-direction:column;gap:12px">
-<h2 style="margin:0;font-family:Fredoka,sans-serif;font-size:24px">Request an order</h2>
-<div id="prod" style="font-size:14px;color:#4A3860"></div>
-<label class="f">Your name<input name="name" required maxlength="80" autocomplete="name"></label>
-<label class="f">WhatsApp / phone<input name="phone" required maxlength="30" inputmode="tel" autocomplete="tel"></label>
-<label class="f">City<input name="city" maxlength="60" autocomplete="address-level2"></label>
-<label class="f">I am a<select name="type"><option>Athlete</option><option>Parent</option><option>Coach</option><option>Club</option><option>Retailer</option></select></label>
-<label class="f">Sizes, quantities, notes<textarea name="note" rows="3" maxlength="600"></textarea></label>
-<input name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-<div id="msg" role="status" style="font-size:14px;min-height:20px"></div>
-<div style="display:flex;gap:12px;flex-wrap:wrap">
-<button type="submit" id="send" style="border:0;cursor:pointer;background:#C71F66;color:#fff;font:600 16px Inter,sans-serif;padding:14px 24px;border-radius:999px;min-height:44px">Send request</button>
-<button type="button" id="close" style="border:2px solid #2A1440;cursor:pointer;background:#fff;color:#2A1440;font:600 16px Inter,sans-serif;padding:12px 22px;border-radius:999px;min-height:44px">Close</button>
-</div>
-</form>
-</dialog>
-<style>
-.f{display:flex;flex-direction:column;gap:4px;font-size:14px;font-weight:600}
-.f input,.f select,.f textarea{font:400 16px Inter,sans-serif;padding:10px 12px;border:2px solid #CDB8E3;border-radius:12px;color:#2A1440;background:#fff}
-dialog::backdrop{background:rgba(42,20,64,.55)}
-</style>
-<script>
-var dlg=document.getElementById('dlg'),frm=document.getElementById('frm'),msg=document.getElementById('msg'),product='';
-document.addEventListener('click',function(e){
-  var b=e.target.closest('[data-enq]');
-  if(b){product=b.getAttribute('data-enq');document.getElementById('prod').textContent='Product: '+product;msg.textContent='';frm.reset();dlg.showModal();}
-});
-document.getElementById('close').onclick=function(){dlg.close()};
-frm.onsubmit=function(e){
-  e.preventDefault();
-  var send=document.getElementById('send');send.disabled=true;msg.style.color='#4A3860';msg.textContent='Sending...';
-  var data=Object.fromEntries(new FormData(frm).entries());data.product=product;
-  fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
-  .then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j}})})
-  .then(function(x){
-    if(x.ok){msg.style.color='#2A7A1E';msg.textContent='Thank you! We will contact you on WhatsApp soon.';frm.reset();setTimeout(function(){dlg.close()},2500);}
-    else{msg.style.color='#B00020';msg.textContent=x.j.error||'Something went wrong. Please try again.';}
-    send.disabled=false;
-  }).catch(function(){msg.style.color='#B00020';msg.textContent='Could not send. Check your connection and try again.';send.disabled=false;});
-};
-</script>
+<script src="cart.js"></script>
+<script src="products.js"></script>
+<script src="catalog.js"></script>
 </body>
 </html>

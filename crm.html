@@ -4,121 +4,269 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>CRM dashboard – Gymnastics wear in Egy</title>
+<title>Dashboard – Gymnastics wear in Egy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
 body{background:#F7F2FB}
-.nav{text-align:left;border:0;cursor:pointer;font:600 15px 'Inter',sans-serif;padding:12px 14px;border-radius:12px;min-height:44px;background:transparent;color:#fff}
-.nav.on{background:#FFC20E;color:#2A1440}
-.card{background:#fff;border-radius:16px;padding:24px}
-h2{margin:0;font-family:'Fredoka',sans-serif;font-size:22px}
-.pill{border:0;cursor:pointer;font:600 14px 'Inter',sans-serif;padding:10px 16px;border-radius:999px;min-height:44px;background:#EFE6F7;color:#2A1440}
+.wrap{max-width:1000px;margin:0 auto;padding:24px 20px 60px}
+.tab{border:0;cursor:pointer;font:600 16px 'Inter',sans-serif;padding:12px 22px;border-radius:999px;min-height:48px;background:#fff;color:#2A1440}
+.tab.on{background:#2A1440;color:#fff}
+.pill{border:0;cursor:pointer;font:600 14px 'Inter',sans-serif;padding:8px 16px;border-radius:999px;min-height:40px;background:#EFE6F7;color:#2A1440}
 .pill.on{background:#6B2D8F;color:#fff}
-.adv{margin-top:6px;border:0;cursor:pointer;background:#C71F66;color:#fff;font:600 14px 'Inter',sans-serif;padding:10px 14px;border-radius:999px;min-height:44px}
-.crow{display:flex;gap:16px;align-items:center;text-align:left;width:100%;border:0;border-top:1px solid #E6DAF1;background:#fff;padding:14px 8px;cursor:pointer;font:400 15px 'Inter',sans-serif;color:#2A1440;min-height:44px}
-.crow.on{background:#F1E7F8}
-.empty{color:#4A3860;font-size:15px;padding:8px 0}
+.card{background:#fff;border-radius:16px;padding:20px}
+h2{margin:0 0 12px;font-family:'Fredoka',sans-serif;font-size:22px}
+.adv{border:0;cursor:pointer;background:#C71F66;color:#fff;font:600 14px 'Inter',sans-serif;padding:10px 18px;border-radius:999px;min-height:44px}
+.info{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:14px;color:#4A3860}
+.info b{color:#2A1440}
+.empty{color:#4A3860;font-size:15px;padding:12px 0}
+.bar{height:12px;border-radius:6px;background:#EFE6F7;overflow:hidden}
+.bar i{display:block;height:100%;background:#6B2D8F;border-radius:6px}
+.brow{display:flex;gap:12px;align-items:center;font-size:14px;padding:6px 0}
+.brow .l{flex:0 0 130px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.brow .b{flex:1 1 auto}
+.brow .v{flex:0 0 56px;text-align:right;font-weight:600}
+.ef{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:600}
+.ef input,.ef select,.ef textarea{font:400 15px 'Inter',sans-serif;padding:9px 12px;border:2px solid #CDB8E3;border-radius:12px;color:#2A1440;background:#fff;min-width:0;width:100%;box-sizing:border-box}
+#editDlg{border:0;border-radius:20px;padding:22px;max-width:640px;width:calc(100% - 24px);max-height:92vh;font-family:Inter,sans-serif;color:#2A1440}
+#editDlg::backdrop{background:rgba(42,20,64,.55)}
+.irow{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;border-top:1px solid #E6DAF1;padding:10px 0}
+.grid{display:flex;flex-wrap:wrap;gap:16px}
+.grid>.card{flex:1 1 300px;min-width:0}
 </style>
 </head>
 <body>
-<div style="min-height:100vh;display:flex;flex-wrap:wrap">
-<aside style="flex:1 1 240px;max-width:260px;min-width:220px;background:#2A1440;color:#fff;padding:28px 20px;display:flex;flex-direction:column;gap:28px">
-<div style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:22px;line-height:1.15">Gymnastics wear in Egy<div style="font-family:Inter,sans-serif;font-weight:500;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#D9CBE8;margin-top:6px">CRM</div></div>
-<div id="nav" style="display:flex;flex-direction:column;gap:6px"></div>
-<a href="index.html" style="color:#D9CBE8;font-size:14px;text-decoration:none">Back to website</a>
-</aside>
-<main style="flex:999 1 560px;min-width:0;padding:32px;display:flex;flex-direction:column;gap:24px">
-<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
-<h1 id="h" style="margin:0;font-family:'Fredoka',sans-serif;font-weight:700;font-size:34px"></h1>
-<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span id="stamp" style="font-size:13px;color:#4A3860"></span><button class="pill" id="refresh">Refresh</button></div>
+<div class="wrap">
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:20px">
+<h1 style="margin:0;font-family:'Fredoka',sans-serif;font-weight:700;font-size:32px">Dashboard</h1>
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span id="stamp" style="font-size:13px;color:#4A3860"></span><button class="pill" id="refresh">Refresh</button><a href="index.html" style="font-size:14px;color:#4A3860">Back to website</a></div>
 </div>
-<div id="status" role="status" style="font-size:15px"></div>
+<div id="demo" hidden style="font-size:13px;font-weight:600;background:#FFC20E;padding:8px 14px;border-radius:999px;display:inline-block;margin-bottom:16px">Sample data for preview</div>
+<div id="tabs" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px"></div>
+<div id="status" role="status" style="font-size:15px;margin-bottom:12px"></div>
 <div id="view"></div>
-</main>
 </div>
+<dialog id="editDlg"><div id="editBody"></div></dialog>
 <script>
-var STAGES=[{k:'lead',l:'New request',c:'#6B2D8F',t:'#E6DAF1'},{k:'quoted',l:'Quote sent',c:'#F7941D',t:'#FFE3BF'},{k:'ordered',l:'Confirmed',c:'#D6246E',t:'#F9D0E1'},{k:'delivered',l:'Delivered',c:'#2A7A1E',t:'#D5EFC9'}];
-var TITLES={overview:'Overview',pipeline:'Orders pipeline',customers:'Customers'};
-var ORDERS=[],CUST=[],S={section:'overview',search:'',type:'All',sel:null};
+var DEMO=false;
+var STAGES=[{k:'lead',l:'Pending',t:'#E6DAF1'},{k:'ordered',l:'Confirmed',t:'#F9D0E1'},{k:'delivered',l:'Delivered',t:'#D5EFC9'},{k:'cancelled',l:'Cancelled',t:'#E5E0EA'}];
+var TABS=[['orders','Orders'],['best','Best selling'],['analytics','Analytics']];
+var BRANDS=['Quatro','Snowflake Designs','Destira','Agiva','IWA','Moreau','Reisport'];
+var E=null;
+var ORDERS=[],S={tab:'orders',status:'All',range:'all',kind:'normal'};
 var $=function(i){return document.getElementById(i)};
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
 var st=function(k){return STAGES.filter(function(x){return x.k===k})[0]||STAGES[0]};
-var key=function(o){return o.phone.replace(/\D/g,'')};
-var when=function(iso){var d=new Date(iso);return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'})+' '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})};
-var wa=function(p){var n=p.replace(/\D/g,'');if(n.charAt(0)==='0')n='20'+n.slice(1);return 'https://wa.me/'+n};
+var wa=function(p){var n=String(p).replace(/\D/g,'');if(n.charAt(0)==='0')n='20'+n.slice(1);return 'https://wa.me/'+n};
+var MODETAG={order:' · by order, 5 to 8 weeks',clearance:' · clearance',stock:''};
 
-function build(){
-  var m={};
-  ORDERS.slice().reverse().forEach(function(o){
-    var k=key(o);
-    if(!m[k])m[k]={id:k,name:o.name,phone:o.phone,city:o.city,type:o.type,orders:[]};
-    m[k].name=o.name;m[k].city=o.city||m[k].city;m[k].type=o.type;m[k].orders.push(o);
+var money=function(n){return Math.round(n).toLocaleString('en-US')+' EGP'};
+var isLater=function(o){return items(o).some(function(i){return i.mode==='order'})};
+var counted=function(o){return o.stage==='ordered'||o.stage==='delivered'};
+function total(o){
+  if(typeof o.total==='number'&&o.total>=0)return o.total;
+  var s=0,its=items(o);
+  for(var k=0;k<its.length;k++){if(!(its[k].price>0))return null;s+=its[k].price*(+its[k].qty||1)}
+  return s;
+}
+function revenue(list){var r=0,miss=0;list.forEach(function(o){if(!counted(o))return;var x=total(o);if(x==null)miss++;else r+=x});return {r:r,miss:miss}}
+function items(o){
+  if(o.items&&o.items.length)return o.items;
+  return [{name:o.product||'General enquiry',brand:'',mode:'stock',qty:1}];
+}
+function when(iso){
+  var d=new Date(iso),diff=(Date.now()-d.getTime())/6e4,rel;
+  if(diff<1)rel='just now';else if(diff<60)rel=Math.round(diff)+' min ago';else if(diff<1440)rel=Math.round(diff/60)+' h ago';else rel=Math.round(diff/1440)+' d ago';
+  return d.toLocaleString('en-GB',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' · '+rel;
+}
+function geoText(o){
+  var g=o.geo||{};var p=[g.city,g.country].filter(Boolean);return p.join(', ');
+}
+function bars(rows,color,fmt){fmt=fmt||String;
+  if(!rows.length)return '<div class="empty">No data yet.</div>';
+  var max=Math.max.apply(null,rows.map(function(r){return r[1]}))||1;
+  return rows.map(function(r){return '<div class="brow"><div class="l" title="'+esc(r[0])+'">'+esc(r[0])+'</div><div class="b bar"><i style="width:'+Math.max(3,Math.round(r[1]/max*100))+'%;'+(color?'background:'+color:'')+'"></i></div><div class="v">'+fmt(r[1])+'</div></div>'}).join('');
+}
+function tally(list,fn){var m={};list.forEach(function(x){var k=fn(x);if(!k)return;m[k]=(m[k]||0)+(x._n||1)});return Object.keys(m).map(function(k){return [k,m[k]]}).sort(function(a,b){return b[1]-a[1]})}
+
+function spot(kind,label,list,rv){
+  var on=S.kind===kind;
+  return '<button data-kind="'+kind+'" style="text-align:left;cursor:pointer;border:3px solid '+(on?'#6B2D8F':'transparent')+';background:#fff;border-radius:16px;padding:18px;flex:1 1 280px;min-width:0;font:400 15px Inter,sans-serif;color:#2A1440">'+
+  '<div style="font-family:Fredoka,sans-serif;font-weight:600;font-size:20px">'+label+'</div>'+
+  '<div style="font-size:14px;color:#4A3860;margin-top:4px">'+list.length+(list.length===1?' order':' orders')+'</div>'+
+  '<div style="font-family:Fredoka,sans-serif;font-weight:700;font-size:26px;margin-top:8px">'+money(rv.r)+'</div>'+
+  '<div style="font-size:13px;color:#4A3860">revenue</div></button>';
+}
+function viewOrders(){
+  var normal=ORDERS.filter(function(o){return !isLater(o)}),later=ORDERS.filter(isLater);
+  var all=revenue(ORDERS),rn=revenue(normal),rl=revenue(later);
+  var pool=S.kind==='later'?later:normal;
+  var h='<div class="card" style="margin-bottom:16px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;justify-content:space-between"><div><div style="font-size:14px;color:#4A3860">Total revenue</div><div style="font-family:Fredoka,sans-serif;font-weight:700;font-size:34px">'+money(all.r)+'</div></div><div style="font-size:13px;color:#4A3860;max-width:420px">Counts Confirmed and Delivered orders.'+(all.miss?' '+all.miss+' of them have no amount yet: add it on the order.':'')+'</div></div>';
+  h+='<div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px">'+spot('normal','Normal orders',normal,rn)+spot('later','Arrive in 5 to 8 weeks',later,rl)+'</div>';
+  var counts={All:pool.length};STAGES.forEach(function(s){counts[s.k]=pool.filter(function(o){return o.stage===s.k}).length});
+  h+='<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px"><button class="pill'+(S.status==='All'?' on':'')+'" data-status="All">All ('+counts.All+')</button>'+STAGES.map(function(s){return '<button class="pill'+(S.status===s.k?' on':'')+'" data-status="'+s.k+'">'+s.l+' ('+counts[s.k]+')</button>'}).join('')+'</div>';
+  var list=pool.filter(function(o){return S.status==='All'||o.stage===S.status});
+  if(!list.length)return h+'<div class="card empty">'+(ORDERS.length?'No orders here.':'No orders yet. They appear here as soon as someone sends one from the shop.')+'</div>';
+  h+='<div style="display:flex;flex-direction:column;gap:12px">';
+  list.forEach(function(o){
+    var s=st(o.stage),g=geoText(o),tt=total(o),id=esc(o.id);
+    h+='<div class="card" style="display:flex;flex-direction:column;gap:10px">'+
+    '<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between"><div style="font-family:Fredoka,sans-serif;font-weight:600;font-size:20px">'+esc(o.name)+'</div><span style="background:'+s.t+';padding:4px 12px;border-radius:999px;font-size:13px;font-weight:600">'+s.l+'</span></div>'+
+    '<div style="font-size:14px;color:#4A3860">'+when(o.createdAt)+(o.editedAt?' · <b style="color:#6B2D8F">Edited</b>':'')+'</div>'+
+    '<div style="font-size:15px;line-height:1.6">'+items(o).map(function(i){return esc(i.qty)+'× '+esc(i.name)+(i.size?' · size '+esc(i.size):'')+(i.brand?' ('+esc(i.brand)+')':'')+(i.mode==='order'?'<b>'+MODETAG.order+'</b>':MODETAG[i.mode]||'')}).join('<br>')+'</div>'+
+    '<div class="info"><span><b>Phone</b> <a href="'+wa(o.phone)+'" target="_blank" rel="noopener" style="color:#2A7A1E;font-weight:600">'+esc(o.phone)+'</a></span>'+
+    (o.city?'<span><b>City</b> '+esc(o.city)+'</span>':'')+
+    (o.address?'<span><b>Address</b> '+esc(o.address)+'</span>':'')+
+    (g?'<span><b>Ordered from</b> '+esc(g)+'</span>':'')+
+    '<span><b>Customer</b> '+esc(o.type)+'</span>'+
+    '<span><b>Total</b> '+(tt==null?'not set':money(tt))+'</span></div>'+
+    (o.note?'<div style="font-size:14px;color:#4A3860"><b style="color:#2A1440">Note</b> '+esc(o.note)+'</div>':'')+
+    '<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><label for="tot-'+id+'" style="font-size:14px;font-weight:600">Amount (EGP)</label><input type="number" min="0" id="tot-'+id+'" value="'+(typeof o.total==='number'?o.total:'')+'" placeholder="'+(tt==null?'0':tt)+'" style="width:130px;min-height:40px;padding:0 12px;border:2px solid #CDB8E3;border-radius:999px;font:400 15px Inter,sans-serif"><button class="pill" data-total="'+id+'">Save amount</button><button class="pill" data-edit="'+id+'">Edit order</button>'+
+    '<label for="st-'+id+'" style="font-size:14px;font-weight:600;margin-left:auto">Status</label><select id="st-'+id+'" data-status-for="'+id+'" style="min-height:40px;padding:0 12px;border:2px solid #CDB8E3;border-radius:999px;font:600 15px Inter,sans-serif;color:#2A1440;background:#fff">'+STAGES.map(function(x){return '<option value="'+x.k+'"'+(x.k===o.stage?' selected':'')+'>'+x.l+'</option>'}).join('')+'</select></div>'+
+    '</div>';
   });
-  CUST=Object.keys(m).map(function(k){m[k].orders.reverse();return m[k]}).sort(function(a,b){return a.orders[0].createdAt<b.orders[0].createdAt?1:-1});
-  if(!S.sel||!m[S.sel])S.sel=CUST.length?CUST[0].id:null;
+  return h+'</div>';
+}
+function viewBest(){
+  var cut=S.range==='30'?Date.now()-30*864e5:0;
+  var rows=[];
+  ORDERS.forEach(function(o){if(new Date(o.createdAt).getTime()>=cut)items(o).forEach(function(i){rows.push({key:i.name+(i.brand?' · '+i.brand:''),_n:+i.qty||1})})});
+  var t=tally(rows,function(r){return r.key}).slice(0,15);
+  var h='<div style="display:flex;gap:8px;margin-bottom:16px"><button class="pill'+(S.range==='all'?' on':'')+'" data-range="all">All time</button><button class="pill'+(S.range==='30'?' on':'')+'" data-range="30">Last 30 days</button></div>';
+  h+='<div class="card"><h2>Best selling products</h2>';
+  h+=t.length?t.map(function(r,i){return '<div class="brow"><div style="flex:0 0 24px;font-weight:600;color:#6B2D8F">'+(i+1)+'</div><div class="l" style="flex:0 0 190px" title="'+esc(r[0])+'">'+esc(r[0])+'</div><div class="b bar"><i style="width:'+Math.max(3,Math.round(r[1]/t[0][1]*100))+'%"></i></div><div class="v" style="flex:0 0 70px">'+r[1]+' pcs</div></div>'}).join(''):'<div class="empty">No orders yet.</div>';
+  return h+'</div>';
+}
+function viewAnalytics(){
+  var now=Date.now(),week=now-7*864e5;
+  var units=0;ORDERS.forEach(function(o){items(o).forEach(function(i){units+=+i.qty||1})});
+  var cities={};ORDERS.forEach(function(o){var c=o.city||(o.geo&&o.geo.city);if(c)cities[c.trim().toLowerCase()]=1});
+  var rev=revenue(ORDERS);
+  var kp=[['Orders',ORDERS.length,'#6B2D8F'],['Revenue',money(rev.r),'#2A7A1E'],['Last 7 days',ORDERS.filter(function(o){return new Date(o.createdAt).getTime()>week}).length,'#D6246E'],['Items ordered',units,'#F7941D'],['Cities',Object.keys(cities).length,'#E5322D']];
+  var h='<div class="grid" style="margin-bottom:16px">'+kp.map(function(k){return '<div class="card" style="border-top:5px solid '+k[2]+'"><div style="font-size:14px;color:#4A3860">'+k[0]+'</div><div style="font-family:Fredoka,sans-serif;font-weight:700;font-size:34px;margin-top:4px">'+k[1]+'</div></div>'}).join('')+'</div>';
+  var days=[];for(var i=13;i>=0;i--){var d=new Date(now-i*864e5);days.push({key:d.toDateString(),label:d.toLocaleDateString('en-GB',{day:'numeric',month:'short'}),n:0})}
+  ORDERS.forEach(function(o){var k=new Date(o.createdAt).toDateString();days.forEach(function(d){if(d.key===k)d.n++})});
+  h+='<div class="card" style="margin-bottom:16px"><h2>Orders per day, last 14 days</h2>'+bars(days.map(function(d){return [d.label,d.n]}),'#D6246E')+'</div>';
+  var rdays=days.map(function(d){return {label:d.label,key:d.key,n:0}});
+  ORDERS.forEach(function(o){if(!counted(o))return;var x=total(o);if(x==null)return;var k=new Date(o.createdAt).toDateString();rdays.forEach(function(d){if(d.key===k)d.n+=x})});
+  h+='<div class="card" style="margin-bottom:16px"><h2>Revenue per day, last 14 days (EGP)</h2>'+bars(rdays.map(function(d){return [d.label,Math.round(d.n)]}),'#2A7A1E',function(v){return v>=1000?(v/1000).toFixed(1)+'k':v})+'</div>';
+  var city=tally(ORDERS,function(o){return o.city||(o.geo&&o.geo.city)||''}).slice(0,8);
+  var type=tally(ORDERS,function(o){return o.type});
+  var brand=[];ORDERS.forEach(function(o){items(o).forEach(function(i){if(i.brand)brand.push({b:i.brand,_n:+i.qty||1})})});
+  var mode=[];ORDERS.forEach(function(o){items(o).forEach(function(i){mode.push({m:i.mode==='order'?'By order (5 to 8 weeks)':i.mode==='clearance'?'Clearance':'In stock',_n:+i.qty||1})})});
+  h+='<div class="grid"><div class="card"><h2>Where orders come from</h2>'+bars(city,'#6B2D8F')+'</div><div class="card"><h2>Customer type</h2>'+bars(type,'#F7941D')+'</div><div class="card"><h2>Brands</h2>'+bars(tally(brand,function(x){return x.b}).slice(0,8),'#2A7A1E')+'</div><div class="card"><h2>Stock, by order, clearance</h2>'+bars(tally(mode,function(x){return x.m}),'#E5322D')+'</div></div>';
+  return h;
+}
+function render(){
+  $('tabs').innerHTML=TABS.map(function(t){return '<button class="tab'+(S.tab===t[0]?' on':'')+'" data-tab="'+t[0]+'">'+t[1]+'</button>'}).join('');
+  var keep=document.activeElement;
+  $('view').innerHTML=S.tab==='orders'?viewOrders():S.tab==='best'?viewBest():viewAnalytics();
+}
+function drawEdit(){
+  var o=E,h='<form id="editForm" onsubmit="return false" style="display:flex;flex-direction:column;gap:12px"><h2 style="margin:0">Edit order</h2>'+
+  '<div style="display:flex;flex-wrap:wrap;gap:12px"><label class="ef" style="flex:1 1 200px">Name<input id="e-name" value="'+esc(o.name)+'" maxlength="80"></label><label class="ef" style="flex:1 1 200px">Phone<input id="e-phone" value="'+esc(o.phone)+'" maxlength="30" inputmode="tel"></label></div>'+
+  '<div style="display:flex;flex-wrap:wrap;gap:12px"><label class="ef" style="flex:1 1 200px">City<input id="e-city" value="'+esc(o.city)+'" maxlength="60"></label><label class="ef" style="flex:1 1 200px">Customer<select id="e-type">'+['Athlete','Parent','Coach','Club','Retailer'].map(function(x){return '<option'+(x===o.type?' selected':'')+'>'+x+'</option>'}).join('')+'</select></label></div>'+
+  '<label class="ef">Address or area<input id="e-address" value="'+esc(o.address)+'" maxlength="200"></label>'+
+  '<label class="ef">Note<textarea id="e-note" rows="2" maxlength="600">'+esc(o.note)+'</textarea></label>'+
+  '<div style="font-weight:600;font-size:15px">Items</div>'+
+  o.items.map(function(i,k){return '<div class="irow"><label class="ef" style="flex:2 1 160px">Product<input id="i-name-'+k+'" value="'+esc(i.name)+'" maxlength="80"></label><label class="ef" style="flex:0 1 80px">Size<input id="i-size-'+k+'" value="'+esc(i.size||'')+'" maxlength="12"></label>'+
+    '<label class="ef" style="flex:1 1 130px">Brand<select id="i-brand-'+k+'">'+BRANDS.map(function(b){return '<option'+(b===i.brand?' selected':'')+'>'+b+'</option>'}).join('')+(BRANDS.indexOf(i.brand)<0&&i.brand?'<option selected>'+esc(i.brand)+'</option>':'')+'</select></label>'+
+    '<label class="ef" style="flex:1 1 130px">Type<select id="i-mode-'+k+'"><option value="stock"'+(i.mode==='stock'?' selected':'')+'>In stock</option><option value="order"'+(i.mode==='order'?' selected':'')+'>By order, 5 to 8 weeks</option><option value="clearance"'+(i.mode==='clearance'?' selected':'')+'>Clearance</option></select></label>'+
+    '<label class="ef" style="flex:0 0 70px">Qty<input id="i-qty-'+k+'" type="number" min="1" max="999" value="'+esc(i.qty)+'"></label>'+
+    '<label class="ef" style="flex:0 0 100px">Price EGP<input id="i-price-'+k+'" type="number" min="0" value="'+esc(i.price||'')+'"></label>'+
+    '<button type="button" class="pill" data-edel="'+k+'" aria-label="Remove item">Remove</button></div>'}).join('')+
+  '<div><button type="button" class="pill" data-eadd="1">Add item</button></div>'+
+  '<div id="editMsg" role="status" style="font-size:14px;color:#B00020;min-height:18px"></div>'+
+  '<div style="display:flex;gap:10px;flex-wrap:wrap"><button type="button" class="adv" data-esave="1">Save changes</button><button type="button" class="pill" data-eclose="1" style="min-height:44px;padding:10px 20px">Cancel</button></div></form>';
+  $('editBody').innerHTML=h;
+}
+function syncEdit(){
+  var g=function(id){var e=$(id);return e?e.value:''};
+  E.name=g('e-name');E.phone=g('e-phone');E.city=g('e-city');E.type=g('e-type');E.address=g('e-address');E.note=g('e-note');
+  E.items=E.items.map(function(i,k){return {name:g('i-name-'+k),brand:g('i-brand-'+k),size:g('i-size-'+k),mode:g('i-mode-'+k)||'stock',qty:parseInt(g('i-qty-'+k),10)||1,price:parseFloat(g('i-price-'+k))||null}});
+}
+function openEdit(id){
+  var o=ORDERS.filter(function(x){return x.id===id})[0];if(!o)return;
+  E={id:id,name:o.name,phone:o.phone,city:o.city||'',address:o.address||'',type:o.type,note:o.note||'',items:JSON.parse(JSON.stringify(items(o)))};
+  drawEdit();$('editDlg').showModal();
+}
+function saveEdit(){
+  syncEdit();
+  var items=E.items.filter(function(i){return i.name.trim()});
+  var msg=$('editMsg');
+  if(E.name.trim().length<2||E.phone.replace(/\D/g,'').length<8){msg.textContent='Enter the name and a valid phone number.';return}
+  if(!items.length){msg.textContent='Add at least one item.';return}
+  var f={name:E.name.trim(),phone:E.phone.trim(),city:E.city.trim(),address:E.address.trim(),type:E.type,note:E.note.trim(),items:items};
+  var apply=function(){ORDERS.forEach(function(o){if(o.id===E.id){o.name=f.name;o.phone=f.phone;o.city=f.city;o.address=f.address;o.type=f.type;o.note=f.note;o.items=f.items;o.editedAt=new Date().toISOString()}});$('editDlg').close();render()};
+  if(DEMO){apply();return}
+  msg.style.color='#4A3860';msg.textContent='Saving...';
+  fetch('/api/orders',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:E.id,fields:f})})
+  .then(function(r){if(!r.ok)throw 0;apply()})
+  .catch(function(){msg.style.color='#B00020';msg.textContent='Could not save. Try again.'});
+}
+function demoData(){
+  var H=36e5,D=864e5,now=Date.now();
+  var P={'Leotard':1800,'Short sleeve':900,'Long sleeve':1100,'Shorts':700,'Pants':850,'Grips':350,'Shoes':1400,'Bags':1200,'Others':300};
+  var I=function(n,b,m,q){return {name:n,brand:b,mode:m,qty:q,price:P[n.replace(/ \d+$/,'')]}};
+  var rows=[
+   [0.1,'Mona Hassan','01012345678','Cairo','Parent','lead',[I('Leotard 1','Quatro','stock',2)],'Nasr City, 10th district','Cairo','Size 8 and 10'],
+   [0.4,'Cairo Gymnastics Academy','01123456789','Cairo','Club','lead',[I('Short sleeve 1','Destira','stock',12),I('Shorts 1','Destira','stock',12)],'Zamalek, 26 July St','Cairo','Team order, sizes later'],
+   [1.2,'Coach Ahmed','01234567890','Giza','Coach','lead',[I('Grips 1','Reisport','order',6)],'6th of October','Giza',''],
+   [2.1,'Sara Ali','01098765432','Alexandria','Athlete','ordered',[I('Leotard 2','Snowflake Designs','order',1)],'Smouha','Alexandria','Competition in January'],
+   [2.6,'Nour Mahmoud','01155554444','Mansoura','Parent','ordered',[I('Long sleeve 1','Agiva','stock',2)],'','Mansoura',''],
+   [3.3,'Delta Sports Store','01066667777','Mansoura','Retailer','lead',[I('Leotard 1','Quatro','stock',20),I('Shorts 2','Agiva','stock',20)],'El Gomhoria St','Mansoura','Wholesale price please'],
+   [4.0,'Hana Samir','01277778888','Cairo','Parent','delivered',[I('Bags 1','Moreau','stock',1)],'Maadi','Cairo',''],
+   [4.8,'Alexandria Youth Club','01188889999','Alexandria','Club','ordered',[I('Pants 1','IWA','order',10)],'Sporting','Alexandria',''],
+   [5.5,'Youssef Adel','01011112222','Giza','Athlete','delivered',[I('Shoes 1','Reisport','stock',1)],'Dokki','Giza','Size 42'],
+   [6.2,'Laila Karim','01233334444','Cairo','Parent','delivered',[I('Leotard 1','Quatro','stock',1)],'Heliopolis','Cairo',''],
+   [7.5,'Coach Sample C','01044445555','Alexandria','Coach','delivered',[I('Grips 1','Reisport','stock',10),I('Others 1','Moreau','stock',4)],'Miami','Alexandria',''],
+   [9.0,'Nile Sports Retail','01155556666','Cairo','Retailer','delivered',[I('Short sleeve 2','Snowflake Designs','clearance',15)],'Downtown','Cairo','Clearance stock'],
+   [10.5,'Dina Magdy','01222223333','Cairo','Parent','delivered',[I('Leotard 1','Quatro','stock',1)],'New Cairo','Cairo',''],
+   [12.0,'Giza Training Hall','01033334444','Giza','Club','delivered',[I('Long sleeve 2','Destira','order',8)],'Haram','Giza','']
+  ];
+  return rows.map(function(r,i){return {id:'d'+i,createdAt:new Date(now-r[0]*D).toISOString(),name:r[1],phone:r[2],city:r[3],type:r[4],stage:r[5],items:r[6],address:r[7],geo:{city:r[8],country:'EG'},note:r[9]}});
 }
 function load(){
+  if(DEMO){ORDERS=demoData();$('demo').hidden=false;$('stamp').textContent='';render();return Promise.resolve();}
   $('status').style.color='#4A3860';$('status').textContent='Loading...';
   return fetch('/api/orders',{cache:'no-store'}).then(function(r){
-    if(r.status===401){throw new Error('Staff login required. Reload the page and sign in.')}
-    if(r.status===503){throw new Error('Orders storage is not set up yet. See the README for the setup steps.')}
+    if(r.status===401)throw new Error('Staff login required. Reload the page and sign in.');
+    if(r.status===503)throw new Error('Orders storage is not set up yet. See the README for the setup steps.');
     if(!r.ok)throw new Error('Could not load orders.');
     return r.json();
   }).then(function(j){
-    ORDERS=j.orders||[];build();$('status').textContent='';
+    ORDERS=j.orders||[];$('status').textContent='';
     $('stamp').textContent='Updated '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});render();
   }).catch(function(e){$('status').style.color='#B00020';$('status').textContent=e.message;render();});
-}
-function nav(){$('nav').innerHTML=Object.keys(TITLES).map(function(k){return '<button class="nav'+(S.section===k?' on':'')+'" data-go="'+k+'">'+TITLES[k]+'</button>'}).join('')}
-
-function overview(){
-  var week=Date.now()-7*864e5;
-  var open=ORDERS.filter(function(o){return o.stage!=='delivered'}).length;
-  var k=[['Customers',CUST.length,'#6B2D8F'],['New requests',ORDERS.filter(function(o){return o.stage==='lead'}).length,'#F7941D'],['Open orders',open,'#D6246E'],['Delivered',ORDERS.filter(function(o){return o.stage==='delivered'}).length,'#2A7A1E'],['Requests in last 7 days',ORDERS.filter(function(o){return new Date(o.createdAt).getTime()>week}).length,'#FFC20E']];
-  var h='<div style="display:flex;flex-direction:column;gap:24px"><div style="display:flex;flex-wrap:wrap;gap:16px">'+k.map(function(x){return '<div class="card" style="flex:1 1 170px;border-top:5px solid '+x[2]+'"><div style="font-size:14px;color:#4A3860">'+x[0]+'</div><div style="font-family:Fredoka,sans-serif;font-weight:700;font-size:32px;margin-top:6px">'+x[1]+'</div></div>'}).join('')+'</div>';
-  h+='<div class="card" style="display:flex;flex-direction:column;gap:12px"><h2>Latest requests</h2>';
-  if(!ORDERS.length)h+='<div class="empty">No order requests yet. They appear here as soon as someone sends one from the shop.</div>';
-  else h+='<div style="overflow-x:auto"><div style="min-width:560px">'+ORDERS.slice(0,8).map(function(o){var s=st(o.stage);return '<div style="display:flex;gap:16px;align-items:center;padding:12px 0;border-top:1px solid #E6DAF1;font-size:15px"><div style="flex:3 1 0;font-weight:600">'+esc(o.name)+'</div><div style="flex:3 1 0;color:#4A3860">'+esc(o.product||'General enquiry')+'</div><div style="flex:2 1 0;color:#4A3860">'+when(o.createdAt)+'</div><div style="flex:2 1 0"><span style="background:'+s.t+';padding:4px 10px;border-radius:999px;font-size:13px;font-weight:600">'+s.l+'</span></div></div>'}).join('')+'</div></div>';
-  return h+'</div></div>';
-}
-function pipeline(){
-  return '<div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start">'+STAGES.map(function(s,i){
-    var ds=ORDERS.filter(function(o){return o.stage===s.k}),nx=STAGES[i+1];
-    return '<div style="flex:1 1 230px;background:#EFE6F7;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;border-top:6px solid '+s.c+'"><div style="font-family:Fredoka,sans-serif;font-weight:600;font-size:18px">'+s.l+' <span style="font-family:Inter,sans-serif;font-size:14px;color:#4A3860;font-weight:500">('+ds.length+')</span></div>'+
-    ds.map(function(o){return '<div style="background:#fff;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px"><div style="font-weight:600;font-size:15px">'+esc(o.name)+'</div><div style="font-size:14px;color:#4A3860">'+esc(o.product||'General enquiry')+'</div>'+(o.note?'<div style="font-size:13px;color:#4A3860">'+esc(o.note)+'</div>':'')+'<div style="font-size:13px;color:#4A3860">'+when(o.createdAt)+'</div><a href="'+wa(o.phone)+'" target="_blank" rel="noopener" style="font-size:14px;font-weight:600;color:#2A7A1E">WhatsApp '+esc(o.phone)+'</a>'+(nx?'<button class="adv" data-adv="'+esc(o.id)+'" data-to="'+nx.k+'">Move to: '+nx.l+'</button>':'')+'</div>'}).join('')+(ds.length?'':'<div class="empty">Nothing here</div>')+'</div>';
-  }).join('')+'</div>';
-}
-function customers(){
-  var q=S.search.trim().toLowerCase();
-  var rows=CUST.filter(function(c){return(S.type==='All'||c.type===S.type)&&(!q||c.name.toLowerCase().indexOf(q)>-1||(c.city||'').toLowerCase().indexOf(q)>-1||c.phone.indexOf(q)>-1)});
-  var sc=CUST.filter(function(c){return c.id===S.sel})[0];
-  var h='<div style="display:flex;flex-direction:column;gap:16px"><div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center"><label for="q" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search customers</label><input id="q" type="text" value="'+esc(S.search)+'" placeholder="Search by name, city or phone" style="flex:1 1 260px;min-height:44px;padding:0 16px;border:2px solid #CDB8E3;border-radius:999px;font:400 15px Inter,sans-serif;color:#2A1440;background:#fff">'+
-  ['All','Club','Coach','Athlete','Parent','Retailer'].map(function(t){return '<button class="pill'+(S.type===t?' on':'')+'" data-type="'+t+'">'+t+'</button>'}).join('')+'</div>';
-  h+='<div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start"><div class="card" style="flex:3 1 460px;min-width:0;padding:12px 24px;overflow-x:auto"><div style="min-width:460px">'+
-  rows.map(function(c){return '<button class="crow'+(c.id===S.sel?' on':'')+'" data-sel="'+esc(c.id)+'"><span style="flex:4 1 0;font-weight:600">'+esc(c.name)+'</span><span style="flex:2 1 0;color:#4A3860">'+esc(c.type)+'</span><span style="flex:2 1 0;color:#4A3860">'+esc(c.city)+'</span></button>'}).join('')+
-  (rows.length?'':'<div class="empty" style="padding:24px 8px">'+(CUST.length?'No customers match.':'No customers yet.')+'</div>')+'</div></div>';
-  if(sc){
-    h+='<div class="card" style="flex:2 1 300px;display:flex;flex-direction:column;gap:12px;border-top:5px solid #6B2D8F"><h2>'+esc(sc.name)+'</h2><div style="font-size:14px;color:#4A3860">'+esc(sc.type)+(sc.city?' · '+esc(sc.city):'')+'</div><a href="'+wa(sc.phone)+'" target="_blank" rel="noopener" style="font-size:15px;font-weight:600;color:#2A7A1E">WhatsApp '+esc(sc.phone)+'</a><div style="font-weight:600;font-size:15px;margin-top:8px">Orders</div>'+
-    sc.orders.map(function(o){return '<div style="display:flex;gap:12px;justify-content:space-between;font-size:14px;border-top:1px solid #E6DAF1;padding-top:8px"><span>'+esc(o.product||'General enquiry')+'<br><span style="color:#4A3860">'+when(o.createdAt)+'</span></span><span style="font-weight:600">'+st(o.stage).l+'</span></div>'}).join('')+'</div>';
-  }
-  return h+'</div></div>';
-}
-function render(){
-  nav();$('h').textContent=TITLES[S.section];
-  var keep=document.activeElement&&document.activeElement.id==='q';
-  $('view').innerHTML=S.section==='overview'?overview():S.section==='pipeline'?pipeline():customers();
-  if(keep){var q=$('q');q.focus();q.setSelectionRange(q.value.length,q.value.length);}
 }
 document.addEventListener('click',function(e){
   var b=e.target.closest('button');if(!b)return;
   if(b.id==='refresh'){load();return}
-  if(b.dataset.go)S.section=b.dataset.go;
-  else if(b.dataset.type)S.type=b.dataset.type;
-  else if(b.dataset.sel)S.sel=b.dataset.sel;
+  if(b.dataset.edit){openEdit(b.dataset.edit);return}
+  if(b.dataset.eclose){$('editDlg').close();return}
+  if(b.dataset.eadd){syncEdit();E.items.push({name:'',brand:BRANDS[0],mode:'stock',qty:1,price:null});drawEdit();return}
+  if(b.dataset.edel!==undefined){syncEdit();E.items.splice(+b.dataset.edel,1);drawEdit();return}
+  if(b.dataset.esave){saveEdit();return}
+  if(b.dataset.tab)S.tab=b.dataset.tab;
+  else if(b.dataset.kind){S.kind=b.dataset.kind;S.status='All'}
+  else if(b.dataset.status)S.status=b.dataset.status;
+  else if(b.dataset.range)S.range=b.dataset.range;
+  else if(b.dataset.total){
+    var oid=b.dataset.total,v=parseFloat(document.getElementById('tot-'+oid).value);
+    if(!(v>=0)){$('status').style.color='#B00020';$('status').textContent='Enter an amount in EGP.';return}
+    var done=function(){ORDERS.forEach(function(o){if(o.id===oid)o.total=v});$('status').textContent='';render()};
+    if(DEMO){done();return}
+    b.disabled=true;
+    fetch('/api/orders',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:oid,total:v})})
+    .then(function(r){if(!r.ok)throw 0;done()})
+    .catch(function(){$('status').style.color='#B00020';$('status').textContent='Could not save the amount. Try again.';b.disabled=false});
+    return;
+  }
   else if(b.dataset.adv){
-    var id=b.dataset.adv,to=b.dataset.to;b.disabled=true;
+    var id=b.dataset.adv,to=b.dataset.to;
+    if(DEMO){ORDERS.forEach(function(o){if(o.id===id)o.stage=to});render();return}
+    b.disabled=true;
     fetch('/api/orders',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,stage:to})})
     .then(function(r){if(!r.ok)throw 0;ORDERS.forEach(function(o){if(o.id===id)o.stage=to});render();})
     .catch(function(){$('status').style.color='#B00020';$('status').textContent='Could not update the order. Try again.';b.disabled=false;});
@@ -126,8 +274,16 @@ document.addEventListener('click',function(e){
   } else return;
   render();
 });
-document.addEventListener('input',function(e){if(e.target.id==='q'){S.search=e.target.value;render();}});
-render();load();setInterval(load,60000);
+document.addEventListener('change',function(e){
+  var sel=e.target;if(!sel.dataset||!sel.dataset.statusFor)return;
+  var id=sel.dataset.statusFor,to=sel.value,prev;
+  ORDERS.forEach(function(o){if(o.id===id){prev=o.stage;o.stage=to}});
+  if(DEMO){render();return}
+  fetch('/api/orders',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,stage:to})})
+  .then(function(r){if(!r.ok)throw 0;render()})
+  .catch(function(){ORDERS.forEach(function(o){if(o.id===id)o.stage=prev});$('status').style.color='#B00020';$('status').textContent='Could not change the status. Try again.';render()});
+});
+render();load();if(!DEMO)setInterval(function(){var a=document.activeElement;if(a&&a.tagName==='INPUT')return;load()},60000);
 </script>
 </body>
 </html>

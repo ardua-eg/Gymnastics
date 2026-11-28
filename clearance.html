@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clearance – Gymnastics wear in Egy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.lbl{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4A3860;margin-bottom:8px}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.tab{border:0;cursor:pointer;font:600 16px 'Inter',sans-serif;padding:12px 22px;border-radius:999px;min-height:48px;background:#EFE6F7;color:#2A1440}
+.tab.on{background:#2A1440;color:#fff}
+</style>
+</head>
+<body style="background:#F7F2FB">
+<div style="max-width:1200px;margin:0 auto;padding:20px 32px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:flex-end">
+<div style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;font-size:16px;font-weight:600">
+<a href="index.html" style="text-decoration:none">Home</a>
+<a href="shop.html" style="text-decoration:none">Shop</a>
+<a href="index.html#contact" style="text-decoration:none;background:#C71F66;color:#fff;padding:12px 22px;border-radius:999px">Contact</a>
+</div>
+</div>
+<div style="display:flex;height:12px"><div style="flex:1;background:#6DBE45"></div><div style="flex:1;background:#FFC20E"></div><div style="flex:1;background:#F7941D"></div><div style="flex:1;background:#E5322D"></div><div style="flex:1;background:#D6246E"></div><div style="flex:1;background:#6B2D8F"></div></div>
+
+<main id="catalog" data-modes="clearance" style="max-width:1200px;margin:0 auto;padding:40px 32px 100px;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+<h1 style="margin:0;font-family:'Fredoka',sans-serif;font-weight:700;font-size:44px;letter-spacing:-0.01em">Clearance</h1>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:16px;background:#EFE6F7;border-radius:20px;padding:20px">
+<div><div class="lbl">Category</div><div id="cats" class="row"></div></div>
+<div id="typesWrap" hidden><div class="lbl">Type</div><div id="types" class="row"></div></div>
+<div><div class="lbl">Brand</div><div id="brands" class="row"></div></div>
+</div>
+<div id="count" style="font-size:15px;color:#4A3860"></div>
+<div id="grid" style="display:flex;flex-wrap:wrap;gap:20px"></div>
+<div id="empty" hidden style="font-size:16px;color:#4A3860">No products match these filters.</div>
+</main>
+
+<script src="cart.js"></script>
+<script src="products.js"></script>
+<script src="catalog.js"></script>
+</body>
+</html>
